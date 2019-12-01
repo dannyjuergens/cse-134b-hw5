@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home Page</title>
+
+    <link href="home.css" rel="stylesheet">
+</head>
+
+
+<body>
+
+    <header>CSE 134B Wishlist</header>
+
+    
+    <div id="img">
+
+        <img src="background.jpg" alt="homeImage">
+
+        <!--Sign up form-->
+        <div id="signUp">
+            <p>Sign Up</p>
+            <!--Get the user name-->
+            <input type="text" name="username" placeholder="Username" id="username"> 
+            <!--Get the email-->
+            <input type="email" name="email" placeholder="Email" id="email">
+            <br>
+            <!--Get the password and have them retype their password-->
+            <input type="password" name="password" placeholder="Password" id="password"> 
+            <input type="password"name="password" placeholder="Confirm Password" id="confirmPass">
+            <br>
+            <!--Sign up button-->
+            <button id="signUpBtn">Sign Up</button>
+        </div>
+
+
+    </div>
+    <!--Login Form-->
+    <div id="login">
+        <p id="account">Log in to your Christmas Wishlist Account</p>
+        Email:&nbsp;&nbsp;&nbsp;&ensp; <input type="email" name="email" id="loginEmail"><br>
+        Password: <input type="password" name="password" id="loginPass"><br>
+        <button id="loginBtn">Log in</button>
+    </div>
+
+
+
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js"></script>
+
+
+<script src="auth.js">
+
+</script>
+
+</html>

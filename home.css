@@ -1,0 +1,89 @@
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: .1rem;
+    font-size: 400%;
+}
+
+img {
+    height: 750px;
+    width: 90%;
+
+}
+
+div#img {
+
+    align-self: center;
+    text-align: center;
+}
+
+p {
+    font-size: 2rem;
+    align-self: center;
+    text-align: center;
+}
+
+div#signUp {
+    align-self: center;
+    text-align: center;
+    border-style: solid;
+    box-sizing: content-box;
+    width: 30%;
+    height: 59%;
+    background: rgba(255, 255, 255, .2)
+}
+
+div#login {
+    text-align: center;
+    font-size: 2rem;
+}
+
+div#signUp p {
+    margin-top: 22%;
+}
+
+div#signUp input {
+    margin-bottom: 6%;
+    width: 35%;
+    height: 9%;
+
+}
+
+div#signUp button {
+    background-color: black;
+    color: white;
+    font-size: 1rem;
+    padding: 3%;
+    width: 30%;
+}
+
+div#signUp {
+    position: absolute;
+    top: 20%;
+    left: 35%;
+}
+
+div#login input {
+    width: 214px;
+    height: 29px;
+}
+
+p#account {
+    font-size: 1.5rem;
+}
+
+div#login {
+    font-size: 1.5rem;
+}
+
+div#login button {
+    background-color: teal;
+    padding: .5%;
+    width: 7%;
+    font-size: 1rem;
+
+}
