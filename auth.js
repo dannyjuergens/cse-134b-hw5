@@ -1,13 +1,13 @@
-var firebaseConfig = {
-    apiKey: "AIzaSyDe_eDj0z9y80MTW76tWB6elNpMcORcfLU",
-    authDomain: "test-3b6ae.firebaseapp.com",
-    databaseURL: "https://test-3b6ae.firebaseio.com",
-    projectId: "test-3b6ae",
-    storageBucket: "test-3b6ae.appspot.com",
-    messagingSenderId: "843210156578",
-    appId: "1:843210156578:web:447cdf3380f1ec1b1f387b",
-    measurementId: "G-C7TWH6ENQH"
-};
+const firebaseConfig = {
+    apiKey: "AIzaSyAR0tzJM0wkVPRKT8Ax34YJE_nQcbZkxA0",
+    authDomain: "cse134bhw5-cc389.firebaseapp.com",
+    databaseURL: "https://cse134bhw5-cc389.firebaseio.com",
+    projectId: "cse134bhw5-cc389",
+    storageBucket: "cse134bhw5-cc389.appspot.com",
+    messagingSenderId: "491932596441",
+    appId: "1:491932596441:web:17c370655e264224d566c8",
+    measurementId: "G-8S6VFYHG3G"
+  };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
