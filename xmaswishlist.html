@@ -5,6 +5,9 @@
         <meta name="Christmas Wishlist" content="christmas wishlist crud example">
         <title>Christmas Wishlist</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.8/purify.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js"></script>
     </head>
     <body>
         <header>
@@ -13,9 +16,9 @@
         </header>
         <ul id="wishlist"></ul>
         <dialog id="add-dialog">
-            <form action=""></form>
+            <form id="form" action=""></form>
                 <label for="item-name">Item:</label>
-                <input type="text" firebname="item-name" id="name"><br/>
+                <input type="text" name="item-name" id="name"><br/>
                 <label for="item-pic">Photo:</label>
                 <input type="image" id="item-pic" name="item-pic" alt="image upload"><br/>
                 <label for="description">Description:</label>
