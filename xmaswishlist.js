@@ -44,17 +44,16 @@ window.onload = function getWishlist() {
             price.value = item.price;
             category.value = item.category;
             createListing();
-            btnLogic();
             form.reset()
         });
 
     });
-
 }
-
 
 addBtn.addEventListener('click', function showDialog() {
     form.reset();
+    itemToEdit = null;
+    itemToEditName = null;
     dialog.open = true;
 });
 
@@ -68,7 +67,7 @@ saveBtn.addEventListener('click', function saveData() {
     //when user is saving their edit //Also updates database
     if (itemToEdit != null) {
         doEdit(itemToEdit);
-        btnLogic();
+       
         editFirestore();
     }
     //when user is saving their new item
@@ -84,7 +83,7 @@ saveBtn.addEventListener('click', function saveData() {
             .then(function () {
                 console.log('Document successfully written!');
                 createListing();
-                btnLogic();
+              
             })
             .catch(function (error) {
                 console.error('Error writing document: ', error);
@@ -133,42 +132,33 @@ function createListing() {
     li.setAttribute("data-price", price.value);
     li.setAttribute("data-category", category.value);
     li.innerHTML += `${name.value} ${desc.value} ${category.value} : $${price.value} 
-        <button class="edit">Edit</button><button class="delete">Delete</button>`;
+        <button class="edit" onclick="editFun(this)">Edit</button><button class="delete" onclick="deleteFun(this)">Delete</button>`;
     wishList.appendChild(li);
 }
 
 //preforms the edit changes on the html
 function doEdit(item) {
     item.innerHTML = `${name.value} ${desc.value} ${category.value} : $${price.value} 
-        <button class="edit">Edit</button><button class="delete">Delete</button>`;
+        <button class="edit" onclick="editFun(this)">Edit</button><button class="delete" onclick="deleteFun(this)">Delete</button>`;
 }
-//adds the logic to the buttons
-function btnLogic() {
-    for (let button of editBtn) {
-        button.addEventListener('click', editFun);
-    }
-    for (let button of deleteBtn) {
-        button.addEventListener('click', deleteFun);
-    }
 
-}
 
 //edit logic
-function editFun() {
-    name.value = this.parentElement.getAttribute("data-name");
-    photo.value = this.parentElement.getAttribute("data-photo");
-    desc.value = this.parentElement.getAttribute("data-desc");
-    price.value = this.parentElement.getAttribute("data-price");
-    category.value = this.parentElement.getAttribute("data-category");
+function editFun(item) {
+    name.value = item.parentElement.getAttribute("data-name");
+    photo.value = item.parentElement.getAttribute("data-photo");
+    desc.value = item.parentElement.getAttribute("data-desc");
+    price.value = item.parentElement.getAttribute("data-price");
+    category.value = item.parentElement.getAttribute("data-category");
     dialog.open = true;
-    itemToEdit = this.parentElement;
-    itemToEditName = this.parentElement.getAttribute("data-name");
+    itemToEdit = item.parentElement;
+    itemToEditName = item.parentElement.getAttribute("data-name");
 }
 
 //delete logic
-function deleteFun() {
-    let itemName = this.parentElement.getAttribute("data-name");
-    deleteItem(itemName, this);
+function deleteFun(item) {
+    let itemName = item.parentElement.getAttribute("data-name");
+    deleteItem(itemName, item);
 }
 
 signOutBtn.addEventListener('click', ()=>{
