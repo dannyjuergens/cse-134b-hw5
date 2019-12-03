@@ -1,43 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="Christmas Wishlist" content="christmas wishlist crud example">
-        <title>Christmas Wishlist</title>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.8/purify.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js"></script>
-    </head>
-    <body>
-        <header>
-            <h1>Christmas Wishlist</h1>
-            <button id="add" value="add">Add Item to List</button>
-        </header>
-        <ul id="wishlist"></ul>
-        <dialog id="add-dialog">
-            <form id="form" action=""></form>
-                <label for="item-name">Item:</label>
-                <input type="text" name="item-name" id="name"><br/>
-                <label for="item-pic">Photo:</label>
-                <input type="image" id="item-pic" name="item-pic" alt="image upload"><br/>
-                <label for="description">Description:</label>
-                <input type="text" name="description" id="description"><br/>
-                <label for="price">Price:</label>
-                <input type="number" name="price" id="price"><br/>
-                <label for="Category">Category:</label>
-                <select id="category">
-                    <option value="electronics">Electronics</option>
-                    <option value="clothing">Clothing</option>
-                    <option value="luxury">Luxury</option>
-                    <option value="necessities">Necessities</option>
-                    <option value="other">Other</option>
-                </select>
-            </form>
-            <br/>
-            <button id="cancel" value="cancel">Cancel</button>
-            <button id="save" value="save">Save</button>
-        </dialog>
-        <script src="xmaswishlist.js"></script>
-    </body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="Christmas Wishlist" content="christmas wishlist crud example">
+    <title>Christmas Wishlist</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/1.0.8/purify.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js"></script>
+
+    <style>
+
+        
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <h1>Christmas Wishlist</h1>
+        <button id="add" value="add">Add Item to List</button>
+        <button id="signOut">Sign Out</button>
+    </header>
+    <ul id="wishlist"></ul>
+    <dialog id="add-dialog">
+        <form id="form" action=""></form>
+        <label for="item-name">Item:</label>
+        <input type="text" name="item-name" id="name"><br />
+        <label for="item-pic">Photo:</label>
+        <input type="image" id="item-pic" name="item-pic" alt="image upload"><br />
+        <label for="description">Description:</label>
+        <input type="text" name="description" id="description"><br />
+        <label for="price">Price:</label>
+        <input type="number" name="price" id="price"><br />
+        <label for="Category">Category:</label>
+        <select id="category">
+            <option value="electronics">Electronics</option>
+            <option value="clothing">Clothing</option>
+            <option value="luxury">Luxury</option>
+            <option value="necessities">Necessities</option>
+            <option value="other">Other</option>
+        </select>
+        </form>
+        <br />
+        <button id="cancel" value="cancel">Cancel</button>
+        <button id="save" value="save">Save</button>
+    </dialog>
+    <script src="xmaswishlist.js"></script>
+</body>
+
 </html>
