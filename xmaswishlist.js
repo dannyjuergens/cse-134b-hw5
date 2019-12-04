@@ -19,7 +19,7 @@ let saveBtn = document.getElementById('save');
 let signOutBtn = document.getElementById('signOut');
 let dialog = document.getElementById('add-dialog');
 
-let form = document.getElementById('form');
+let form = document.getElementById('item-form');
 let name = document.getElementById('name');
 let photo = document.getElementById('item-pic');
 let desc = document.getElementById('description');
@@ -44,14 +44,16 @@ window.onload = function getWishlist() {
             price.value = item.price;
             category.value = item.category;
             createListing();
-            form.reset()
         });
 
     });
 }
 
 addBtn.addEventListener('click', function showDialog() {
-    form.reset();
+    name.value = '';
+    desc.value = '';
+    price.value = '';
+    category.value = '';
     itemToEdit = null;
     itemToEditName = null;
     dialog.open = true;
@@ -59,7 +61,6 @@ addBtn.addEventListener('click', function showDialog() {
 
 
 cancelBtn.addEventListener('click', function hideDialog() {
-    form.reset();
     dialog.open = false;
 });
 
