@@ -1,6 +1,15 @@
 # cse-134b-hw5
 Assignment 5 for CSE 134B FA19
 
+No longer using a timeout for authentication. Works perfectly now
+Everything pretty much works
+Only current bugs is when editing a listing. If the name changes, then I lose reference to the image in storage. One possible solution is to delete image and then add the image again with the correct name. Or Have a data field that keeps the original name. Was having issues with the latter. Also if you edit the picture and the name stays the same, you need to refresh the page for the image to update. 
+
+
+
+
+
+
 
 TODO
 [x] rewrite firestore to be users > wishlist > data 
