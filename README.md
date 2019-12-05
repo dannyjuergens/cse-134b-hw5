@@ -16,6 +16,6 @@ TODO
  */ 
 
  Issues:
- [ ] form.reset() not working.
+ [x] form.reset() not working.
  [ ] currentUser is showing undefined when logging in so I'm writing to the undefined database. Maybe it's an issue since I'm running it localhost. Will look into it when I have time.
  [ ] when I click upload image on the form it doesn't prompt me to select an image. So right now I didn't create an image tag to go along with the rest of the info that is displayed to user.
