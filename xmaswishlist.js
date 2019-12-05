@@ -90,7 +90,7 @@ saveBtn.addEventListener('click', function saveData() {
                 console.error('Error writing document: ', error);
             });
         // save photo to storage
-        storageRef.child(`${name.value}`).put(photo.files[0]).then(function(snapshot) {
+        storageRef.child(`${photo.files[0].name}`).put(photo.files[0]).then(function(snapshot) {
             console.log('Uploaded a blob or file!');
           });
     }
@@ -113,7 +113,7 @@ function editFirestore() {
             console.error('Error writing document: ', error);
         });
 
-    storageRef.child(`${name.value}`).put(photo.files[0]).then(function(snapshot) {
+    storageRef.child(`${photo.files[0].name}`).put(photo.files[0]).then(function(snapshot) {
         console.log('Uploaded a blob or file!');
     });
 }
@@ -135,7 +135,7 @@ function editItem() {
 //creates item when user clicks the add button
 function createListing() {
     let li = document.createElement('li');
-    let photoRef = storageRef.child(`${name.value}`).getDownloadURL().then(function(url){
+    let photoRef = storageRef.child(`${photo.files[0].name}`).getDownloadURL().then(function(url){
         li.innerHTML += `<img src=${url}>`;
         li.setAttribute("data-name", name.value);
         li.setAttribute("data-photo", photo.value);
