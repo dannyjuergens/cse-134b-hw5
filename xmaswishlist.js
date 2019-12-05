@@ -8,9 +8,39 @@ firebase.initializeApp({
     appId: "1:491932596441:web:17c370655e264224d566c8",
     measurementId: "G-8S6VFYHG3G"
 });
-var db = firebase.firestore();
+
+var db;
+let currentUserID;
 var storageRef = firebase.storage().ref();
-const currentUserID = firebase.auth().W;
+
+
+//load the current user's wishlist
+firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+        db = firebase.firestore();
+        currentUserID = (user.uid);
+
+
+        storageRef = firebase.storage().ref();
+        db.collection(`users/${currentUserID}/wishlist`).get().then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                let item = doc.data();
+                name.value = item.name;
+                //photo.value = item.photo;
+                //console.log(item.photo)
+                desc.value = item.desc;
+                price.value = item.price;
+                category.value = item.category;
+                createListing();
+            });
+
+        });
+    }
+    else {
+        console.log("User is not signed in")
+        window.location.href = "home.html";
+    }
+})
 
 let wishList = document.getElementById('wishlist');
 
@@ -33,21 +63,7 @@ let deleteBtn = document.getElementsByClassName('delete');
 let itemToEdit = null;
 let itemToEditName = null;
 
-window.onload = function getWishlist() {
-    console.log(currentUserID)
-    let wishlist = db.collection(`users/${currentUserID}/wishlist`).get().then(function (querySnapshot) {
-        querySnapshot.forEach(function (doc) {
-            let item = doc.data();
-            // load item into html 
-            name.value = item.name;
-            desc.value = item.desc;
-            price.value = item.price;
-            category.value = item.category;
-            createListing();
-        });
-
-    });
-}
+let orginalName;
 
 addBtn.addEventListener('click', function showDialog() {
     name.value = '';
@@ -68,35 +84,37 @@ saveBtn.addEventListener('click', function saveData() {
     //when user is saving their edit //Also updates database
     if (itemToEdit != null) {
         doEdit(itemToEdit);
-       
         editFirestore();
     }
     //when user is saving their new item
     else {
+
         // save data to firebase db
         db.collection(`users/${currentUserID}/wishlist`).doc(`${name.value}`).set({
             name: name.value,
             photo: photo.files[0].name,
             desc: desc.value,
             price: price.value,
-            category: category.value
+            category: category.value,
         })
             .then(function () {
                 console.log('Document successfully written!');
-                createListing();
-              
+                storageRef.child(`${name.value}`).put(photo.files[0]).then(function (snapshot) {
+                    console.log('Uploaded a blob or file!');
+                    createListing();
+                });
+
             })
             .catch(function (error) {
                 console.error('Error writing document: ', error);
             });
-        // save photo to storage
-        storageRef.child(`${name.value}`).put(photo.files[0]).then(function(snapshot) {
-            console.log('Uploaded a blob or file!');
-          });
+
+
     }
     itemToEdit = null;
     dialog.open = false;
 });
+
 //method to edit the listing on the database  
 function editFirestore() {
     db.collection(`users/${currentUserID}/wishlist`).doc(`${itemToEditName}`).update({
@@ -112,17 +130,28 @@ function editFirestore() {
         .catch(function (error) {
             console.error('Error writing document: ', error);
         });
-
-    storageRef.child(`${name.value}`).put(photo.files[0]).then(function(snapshot) {
+        
+    storageRef.child(`${name.value}`).put(photo.files[0]).then(function (snapshot) {
         console.log('Uploaded a blob or file!');
     });
 }
+
 //added param item to be able to delete the html item only when the promise is successful
 function deleteItem(itemName, item) {
+    
+    //deleting from database
     db.collection(`users/${currentUserID}/wishlist`).doc(`${itemName}`).delete()
         .then(function () {
             console.log("Document successfully deleted!");
+
+            //deleting from HTML
             wishList.removeChild(item.parentElement)
+            
+            //deleting from storage
+            var deleteImg = storageRef.child(itemName)
+            deleteImg.delete().then(function (){
+                console.log("Success")
+            })
 
         }).catch(function (error) {
             console.error("Error removing document: ", error);
@@ -132,11 +161,13 @@ function deleteItem(itemName, item) {
 function editItem() {
     dialog.open = true;
 }
+
 //creates item when user clicks the add button
 function createListing() {
     let li = document.createElement('li');
-    let photoRef = storageRef.child(`${name.value}`).getDownloadURL().then(function(url){
-        li.innerHTML += `<img src=${url}>`;
+    let photoRef = storageRef.child(`${name.value}`).getDownloadURL().then(function (url) {
+        console.log(url);
+        li.innerHTML += `<img src=${url} width=100px height = 100px>`;
         li.setAttribute("data-name", name.value);
         li.setAttribute("data-photo", photo.value);
         li.setAttribute("data-desc", desc.value);
@@ -150,13 +181,19 @@ function createListing() {
 
 //preforms the edit changes on the html
 function doEdit(item) {
-    item.innerHTML = `${name.value} ${desc.value} ${category.value} : $${price.value} 
-        <button class="edit" onclick="editFun(this)">Edit</button><button class="delete" onclick="deleteFun(this)">Delete</button>`;
+    //console.log("enterd")
+        let photoRef = storageRef.child(`${name.value}`).getDownloadURL().then(function (url) {
+            item.innerHTML = `<img src=${url} width=100px height = 100px>`;
+            item.innerHTML += `${name.value} ${desc.value} ${category.value} : $${price.value} 
+            <button class="edit" onclick="editFun(this)">Edit</button><button class="delete" onclick="deleteFun(this)">Delete</button>`;
+        })
+        
 }
 
 
 //edit logic
 function editFun(item) {
+    
     name.value = item.parentElement.getAttribute("data-name");
     photo.value = item.parentElement.getAttribute("data-photo");
     desc.value = item.parentElement.getAttribute("data-desc");
@@ -173,13 +210,13 @@ function deleteFun(item) {
     deleteItem(itemName, item);
 }
 
-signOutBtn.addEventListener('click', ()=>{
-    firebase.auth().signOut().then(function() {
+signOutBtn.addEventListener('click', () => {
+    firebase.auth().signOut().then(function () {
         console.log('Signed Out');
         window.location.href = "home.html";
-      }, function(error) {
+    }, function (error) {
         console.error('Sign Out Error', error);
-      });
+    });
 })
 
 
