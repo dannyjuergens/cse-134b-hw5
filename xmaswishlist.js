@@ -224,8 +224,17 @@ function createListing() {
  */
 function putInHTML(item) {
     console.log("entered")
-    item.innerHTML = `${name.value} ${desc.value} ${category.value} : $${price.value} 
-            <button class="edit" onclick="editFun(this)">Edit</button><button class="delete" onclick="deleteFun(this)">Delete</button>`;
+    item.innerHTML = 
+        `<div class="content">
+            <p class="title">${name.value}</p>
+            <p class="description">Description: ${desc.value}</p>
+            <p class="category">Category: ${category.value}</p>
+            <p class="price">$${price.value}</p>
+        </div>
+        <div class="buttons">
+            <button class="edit" onclick="editFun(this)">Edit</button> <br/>
+            <button class="delete" onclick="deleteFun(this)">Delete</button>
+        </div>`;
     wishList.appendChild(item);
     item.insertAdjacentHTML("afterbegin", `<img id="placeholder" width=100px height = 100px>`)
 

@@ -1,6 +1,75 @@
 body {
     display: flex;
+    flex-direction: column;
+    background: url('./background.jpg');
 }
 header {
+    margin: 10px;
+    width: 100%;
+    display: inline-flex;
     flex-direction: row;
+    justify-content: center;
+    border: 2px solid #333333;
+    background:rgba(255, 255, 255, .8);
+}
+
+header > button{
+    align-self: flex-end;
+}
+
+h1 {
+    align-self: center;
+}
+
+button { 
+    align-self: flex-end;
+    border: 2px solid #333333;
+    margin: 2px;
+}
+
+.buttons {
+    flex-direction: column;
+    align-self: center;
+    align-content: space-around;
+}
+
+.buttons button {
+    width: 50px;
+    margin-right: 25px;
+}
+
+li {
+    display: inline-flex;
+    border: 2px solid #333333;
+    margin: 5px;
+    height: 200px;
+    justify-content: space-around;
+    background:rgba(255, 255, 255, .8);
+}
+
+.content {
+    margin: 5px 5px 5px 25px;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+img {
+    align-self: center;
+    min-width: 120px;
+    min-height: 120px;
+    max-width: 200px;
+    max-height: 200px;
+
+}
+
+.title {
+    font-weight: bold;
+    font-size: 20px;
 }
