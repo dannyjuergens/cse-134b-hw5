@@ -35,7 +35,7 @@ firebase.auth().onAuthStateChanged(function (user) {
                 price.value = item.price;
                 category.value = item.category;
                 index = item.imageIndex;
-
+                console.log(index)
                 //starts putting the info on the screen
                 let ref = createListing();
                 putInHTML(ref);
@@ -71,6 +71,7 @@ let deleteBtn = document.getElementsByClassName('delete');
 
 
 let itemToEdit = null;
+var key;
 
 //This variable is how we reference image/data after a user makes an edit
 let index;
@@ -103,15 +104,16 @@ saveBtn.addEventListener('click', function saveData() {
     }
     //when user is saving their new item
     else {
+        key = Math.random().toString(36).slice(2)
         index = null;
         // save data to firebase db
-        db.collection(`users/${currentUserID}/wishlist`).doc(`${name.value}`).set({
+        db.collection(`users/${currentUserID}/wishlist`).doc(`${key}`).set({
             name: name.value,
             photo: photo.files[0].name,
             desc: desc.value,
             price: price.value,
             category: category.value,
-            imageIndex: name.value
+            imageIndex:  key
         })
             .then(function () {
                 console.log('Document successfully written!');
@@ -169,7 +171,7 @@ function deleteItem(itemName, item) {
             wishList.removeChild(item.parentElement)
 
             //deleting from storage
-            var deleteImg = storageRef.child(`${currentUserID}/${index}`)
+            var deleteImg = storageRef.child(`${currentUserID}/${itemName}`)
             deleteImg.delete().then(function () {
                 console.log("Success")
             })
@@ -199,8 +201,11 @@ function createListing() {
 
     //initialies data-index if not set before 
     if (index == null) {
-        li.setAttribute("data-index", name.value);
-        index = name.value;
+        
+        li.setAttribute("data-index",  key);
+        
+        
+        index = key;
     }
     //keeps the original data-index
 
@@ -250,6 +255,9 @@ function putInHTML(item) {
  * @param item - takes in the element containing the item's info 
  */
 function putImageInHTML(item) {
+
+    console.log("thiu" + index)
+
     let photoRef = storageRef.child(`${currentUserID}/${index}`).getDownloadURL().then(function (url) {
         
         //removes the placeholder image
@@ -289,7 +297,7 @@ function editFun(item) {
  */
 function deleteFun(item) {
     let itemName = item.parentElement.getAttribute("data-index");
-    console.log(itemName)
+    console.log("deleting" + itemName)
     deleteItem(itemName, item);
 }
 
