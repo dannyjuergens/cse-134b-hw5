@@ -12,11 +12,9 @@ header {
 img {
     height: 750px;
     width: 90%;
-
 }
 
 div#img {
-
     align-self: center;
     text-align: center;
 }
