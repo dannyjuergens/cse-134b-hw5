@@ -30,7 +30,6 @@ firebase.auth().onAuthStateChanged(function (user) {
             querySnapshot.forEach(function (doc) {
                 let item = doc.data();
                 name.value = item.name;
-                //photo.value = item.photo;
                 desc.value = item.desc;
                 price.value = item.price;
                 category.value = item.category;
@@ -113,7 +112,7 @@ saveBtn.addEventListener('click', function saveData() {
             desc: DOMPurify.sanitize(desc.value),
             price: DOMPurify.sanitize(price.value),
             category: category.value,
-            imageIndex:  key
+            imageIndex: key
         })
             .then(function () {
                 console.log('Document successfully written!');
@@ -139,7 +138,7 @@ saveBtn.addEventListener('click', function saveData() {
 function editFirestore() {
     db.collection(`users/${currentUserID}/wishlist`).doc(`${index}`).update({
         name: DOMPurify.sanitize(name.value),
-        photo: DOMPurify.sanitize(photo.files[0].name),
+        //photo: DOMPurify.sanitize(photo.files[0].name),
         desc: DOMPurify.sanitize(desc.value),
         price: DOMPurify.sanitize(price.value),
         category: category.value,
@@ -147,20 +146,33 @@ function editFirestore() {
         .then(function () {
             console.log('Document successfully written!');
             putInHTML(itemToEdit);
-        
-            storageRef.child(`${currentUserID}/${index}`).put(photo.files[0]).then(function (snapshot) {
-                console.log('Uploaded a blob or file!');
+            
+            if( photo.files[0] == null){
+                console.log("No pic")
                 putImageInHTML(itemToEdit);
-        itemToEdit = null;
-            })
-                .catch(function (error) {
-                    console.error('Error writing document: ', error);
-                });
+                itemToEdit = null;
+            }
+
+            else{
+                console.log("pic")
+                storageRef.child(`${currentUserID}/${index}`).put(photo.files[0]).then(function (snapshot) {
+                    console.log('Uploaded a blob or file!');
+                    putImageInHTML(itemToEdit);
+                    itemToEdit = null;
+                })
+                    .catch(function (error) {
+                        console.error('Error writing document: ', error);
+                    });
+    
+            }
         });
 }
 
 //added param item to be able to delete the html item only when the promise is successful
 function deleteItem(itemName, item) {
+
+
+    console.log(itemName)
 
     //deleting from database
     db.collection(`users/${currentUserID}/wishlist`).doc(`${itemName}`).delete()
@@ -168,7 +180,7 @@ function deleteItem(itemName, item) {
             console.log("Document successfully deleted!");
 
             //deleting from HTML
-            wishList.removeChild(item.parentElement)
+            wishList.removeChild(item.parentElement.parentElement)
 
             //deleting from storage
             var deleteImg = storageRef.child(`${currentUserID}/${itemName}`)
@@ -201,10 +213,8 @@ function createListing() {
 
     //initialies data-index if not set before 
     if (index == null) {
-        
-        li.setAttribute("data-index",  key);
-        
-        
+
+        li.setAttribute("data-index", key);
         index = key;
     }
     //keeps the original data-index
@@ -212,7 +222,7 @@ function createListing() {
     else {
         li.setAttribute("data-index", index);
     }
-  
+
     return (li);
 }
 
@@ -229,7 +239,7 @@ function createListing() {
  */
 function putInHTML(item) {
     console.log("entered")
-    item.innerHTML = 
+    item.innerHTML =
         `<div class="content">
             <p class="title">${name.value}</p>
             <p class="description">Description: ${desc.value}</p>
@@ -259,7 +269,7 @@ function putImageInHTML(item) {
     console.log("thiu" + index)
 
     let photoRef = storageRef.child(`${currentUserID}/${index}`).getDownloadURL().then(function (url) {
-        
+
         //removes the placeholder image
         var placeholder = document.getElementById("placeholder")
         placeholder.remove();
@@ -280,13 +290,13 @@ function putImageInHTML(item) {
 function editFun(item) {
     item = item.parentElement;
     name.value = item.parentElement.getAttribute("data-name");
-    photo.value = item.parentElement.getAttribute("data-photo");
     desc.value = item.parentElement.getAttribute("data-desc");
     price.value = item.parentElement.getAttribute("data-price");
     category.value = item.parentElement.getAttribute("data-category");
     index = item.parentElement.getAttribute("data-index");
 
     dialog.open = true;
+    
     itemToEdit = item.parentElement;
 }
 
@@ -296,7 +306,7 @@ function editFun(item) {
  * @param {@} item -takes in the element containing the item's info 
  */
 function deleteFun(item) {
-    let itemName = item.parentElement.getAttribute("data-index");
+    let itemName = item.parentElement.parentElement.getAttribute("data-index");
     console.log("deleting" + itemName)
     deleteItem(itemName, item);
 }
