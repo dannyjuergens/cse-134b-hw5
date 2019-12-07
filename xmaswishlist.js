@@ -278,7 +278,7 @@ function putImageInHTML(item) {
  * @param {} item - takes in the element containing the item's info 
  */
 function editFun(item) {
-
+    item = item.parentElement;
     name.value = item.parentElement.getAttribute("data-name");
     photo.value = item.parentElement.getAttribute("data-photo");
     desc.value = item.parentElement.getAttribute("data-desc");

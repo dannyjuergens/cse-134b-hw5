@@ -12,6 +12,7 @@ header {
     justify-content: center;
     border: 2px solid #333333;
     background:rgba(255, 255, 255, .8);
+    border: 2px dashed #0f8a5f;
     position: sticky;
     top: 10px;
     color: #cc231e;
@@ -62,7 +63,8 @@ li {
     margin: 5px;
     height: 200px;
     justify-content: space-around;
-    background:rgba(255, 255, 255, .8);
+    background:rgba(255, 255, 255, .7);
+    border: 2px dashed #0f8a5f;
 }
 
 .content {
@@ -70,6 +72,7 @@ li {
     flex-grow: 1;
     flex-direction: column;
     align-items: center;
+    overflow: scroll;
 }
 
 img {
@@ -85,9 +88,10 @@ img {
 .title {
     font-weight: bold;
     font-size: 18px;
+    color: #cc231e;
 }
 
 dialog {
-    top: 50%;
-    left: 50%;
+    top: 25%;
+    border: 2px dashed #0f8a5f;
 }
