@@ -12,6 +12,9 @@ To view our test account with prefilled dummy data, please log in with the follo
 email: fake@fake.com
 password: password
 
+Otherwise feel free to create your own account to test.
+
 
 Extra Credit
  - Early submission
+ - Flashy Interface
