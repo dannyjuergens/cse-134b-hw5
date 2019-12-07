@@ -108,10 +108,10 @@ saveBtn.addEventListener('click', function saveData() {
         index = null;
         // save data to firebase db
         db.collection(`users/${currentUserID}/wishlist`).doc(`${key}`).set({
-            name: name.value,
-            photo: photo.files[0].name,
-            desc: desc.value,
-            price: price.value,
+            name: DOMPurify.sanitize(name.value),
+            photo: DOMPurify.sanitize(photo.files[0].name),
+            desc: DOMPurify.sanitize(desc.value),
+            price: DOMPurify.sanitize(price.value),
             category: category.value,
             imageIndex:  key
         })
@@ -138,10 +138,10 @@ saveBtn.addEventListener('click', function saveData() {
 //method to edit the listing on the database  
 function editFirestore() {
     db.collection(`users/${currentUserID}/wishlist`).doc(`${index}`).update({
-        name: name.value,
-        photo: photo.files[0].name,
-        desc: desc.value,
-        price: price.value,
+        name: DOMPurify.sanitize(name.value),
+        photo: DOMPurify.sanitize(photo.files[0].name),
+        desc: DOMPurify.sanitize(desc.value),
+        price: DOMPurify.sanitize(price.value),
         category: category.value,
     })
         .then(function () {
