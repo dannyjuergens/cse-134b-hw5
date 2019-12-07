@@ -6,8 +6,12 @@ Danny Juergens
 A13787310
 
 Felipe Mora
-
+A13127268
 
 To view our test account with prefilled dummy data, please log in with the following:
 email: fake@fake.com
 password: password
+
+
+Extra Credit
+ - Early submission
